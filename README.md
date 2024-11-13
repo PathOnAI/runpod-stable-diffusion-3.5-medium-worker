@@ -6,6 +6,22 @@ A specialized worker template for building custom RunPod Endpoint API workers ut
 
 </div>
 
+## Docker Container
+
+The ready-to-use Docker container is available on Docker Hub:
+```bash
+thehunter911/stbldiff3.5-medium-runpod-serverless
+```
+which can be used to deploy onto Runpod Serverless endpoint directly.
+
+
+You can also pull it using:
+```bash
+docker pull thehunter911/stbldiff3.5-medium-runpod-serverless
+```
+
+
+
 ## Input Parameters
 
 | Parameter | Type | Default | Description |
