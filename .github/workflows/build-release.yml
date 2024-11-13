@@ -45,5 +45,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
+          build-args: |
+            HUGGINGFACE_TOKEN=${{ secrets.HUGGINGFACE_TOKEN }}
           tags: ${{ vars.DOCKERHUB_REPO }}/${{ vars.DOCKERHUB_IMG }}:${{ (github.event_name == 'release' && github.event.release.tag_name) || (github.event_name == 'workflow_dispatch' && github.event.inputs.image_tag) || 'dev' }}
 

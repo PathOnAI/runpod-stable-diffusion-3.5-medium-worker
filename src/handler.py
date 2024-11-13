@@ -14,7 +14,7 @@ try:
         "stabilityai/stable-diffusion-3.5-large", 
         torch_dtype=torch.float16, 
         variant="fp16",
-        token=os.getenv("HUGGINGFACE_TOKEN")
+        token=os.environ.get('HUGGINGFACE_TOKEN')
     )
 
     pipe.to("cuda")
