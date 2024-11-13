@@ -11,7 +11,7 @@ load_dotenv()
 
 try:
     pipe = StableDiffusion3Pipeline.from_pretrained(
-        "stabilityai/stable-diffusion-3.5-large", 
+        "stabilityai/stable-diffusion-3.5-medium", 
         torch_dtype=torch.bfloat16, 
         token=os.environ.get('HUGGINGFACE_TOKEN')
     )
