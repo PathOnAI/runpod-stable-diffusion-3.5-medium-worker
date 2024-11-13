@@ -1,29 +1,55 @@
 <div align="center">
 
-<h1>SDXL Turbo Worker Template</h1>
+<h1>Stable Diffusion 3.5 Medium Worker Template</h1>
 
-A specialized worker template for building custom RunPod Endpoint API workers utilizing the SDXL Turbo model.
+A specialized worker template for building custom RunPod Endpoint API workers utilizing the Stable Diffusion 3.5 Medium model. This implementation supports various aspect ratios, guidance scales, and inference steps customization.
 
 </div>
+
+## Input Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| prompt | string | required | The text description of the image you want to generate |
+| aspect_ratio | string | "1:1" | Image aspect ratio. See supported values below |
+| guidance_scale | float | 0.0 | How closely the model follows the prompt |
+| num_inference_steps | integer | 1 | Number of denoising steps |
+
+### Supported Aspect Ratios
+- "16:9" - Widescreen (1024×576)
+- "1:1" - Square (1024×1024)
+- "21:9" - Ultra-wide (1024×439)
+- "2:3" - Portrait (683×1024)
+- "3:2" - Landscape (1024×683)
+- "4:5" - Portrait (819×1024)
+- "5:4" - Landscape (1024×819)
+- "9:16" - Vertical/Mobile (576×1024)
+- "9:21" - Vertical ultra-wide (439×1024)
 
 ## Example Input
 
 ```json
 {
     "input": {
-        "prompt": "An image of a cat with a hat on.",
+        "prompt": "An image of a cat with a hat on",
+        "aspect_ratio": "16:9",
+        "guidance_scale": 0.0,
+        "num_inference_steps": 1
     }
 }
 ```
 
 ## Example Output
 
-The output from the SDXL Turbo Worker is a base64 encoded string of the generated image. Below is an example of what this output might look like:
+The output is a base64 encoded string of the generated image. Example:
 
+```
 data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...
+```
 
+### Viewing the Output
 
-To view the image, you can decode this base64 string into an image file using a suitable tool or programming library. For instance, in Python, you can use the following snippet:
+To view the generated image, you can decode the base64 string using Python:
 
 ```python
 import base64
@@ -36,3 +62,11 @@ image_data = base64.b64decode(base64_string)
 image = Image.open(io.BytesIO(image_data))
 image.show()
 ```
+
+## Performance Notes
+
+This implementation uses torch.float16 with fp16 variant for optimal inference performance on consumer GPUs. This configuration provides:
+- Faster inference speed
+- Lower memory usage
+- Better hardware compatibility
+- Optimal for generation tasks
